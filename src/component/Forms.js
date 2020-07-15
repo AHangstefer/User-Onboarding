@@ -59,17 +59,15 @@ export default function Form(){
             .then(valid =>{
                 setErrors({...errors, [e.target.name]: ""});
             })
-            .catch(err => {
-                console.log("error!", err);
-                setErrors({...errors, [e.target.name]: err.errors[0]})
-            });
+            .catch(err => setErrors({...errors, [e.target.name]: err.errors[0]}));
+        
         };
 
 
         useEffect(() =>{
             formSchema.isValid(formState).then(valid =>{
                 console.log("valid?", valid);
-                setIsButtonDisabled(!valid)
+                setIsButtonDisabled(!valid);
             });
         }, [formState]);
 
@@ -82,7 +80,7 @@ export default function Form(){
 
     const formSubmit = e => {
         e.preventDefault();
-        //console.log ("form submitted!");
+        console.log ("form submitted!");
         axios
         .post("https://reqres.in/api/users", formState)
          .then(response => {
@@ -103,15 +101,16 @@ export default function Form(){
 
     const inputChange = e => {
         console.log("input changed!", e.target.value);
-
-        e.persist();
+        console.log(formState);
+        e.persist()
 
         const newFormData = {
             ...formState,
             [e.target.name]:e.target.type === "checkbox" ? e.target.checked : e.target.value
         };
         validateChange(e)
-        setFormState({newFormData});
+        setFormState(newFormData);
+        console.log(formState);
     };
 
       {/* newFromData is recieving all data from formState (key value pairs).
@@ -177,7 +176,7 @@ export default function Form(){
             
             
                 
-            <pre>{JSON.stringify(post,null,2)}</pre>
+           <pre>{JSON.stringify(post,null,2)}</pre> 
         
 
             <button disabled={isButtonDisabled} type="submit">
