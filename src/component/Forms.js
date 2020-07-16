@@ -1,6 +1,16 @@
 import React, {useState, useEffect} from "react";
 import * as yup from "yup";
 import axios from  "axios";
+import styled from "styled-components";
+
+const P = styled.p`
+display: flex;
+flex-direction: column;
+padding: 2%;
+align-items: center;
+justify-content: space-between;
+
+`;
 
 
 export default function Form(){
@@ -126,6 +136,7 @@ export default function Form(){
 
     return (
         <form onSubmit = {formSubmit}>
+            <P>
             <label htmlFor= "name">
                 Name
              <input 
@@ -183,9 +194,10 @@ export default function Form(){
                 Submit
             </button>
 
-            
+            </P>
             
         </form>
+    
 
     )
 }
