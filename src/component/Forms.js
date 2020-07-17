@@ -28,9 +28,7 @@ export default function Form(){
 
     });
 
-    {/* the keys in useState(formState) must match the "names" in 
-     inputs. When setFormState uses {name: e.target.value} it's looking at
-     the "name" key for each input. These are all connected */}
+
 
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
@@ -46,9 +44,6 @@ export default function Form(){
     });
 
     
-    
-    {/* error useState is the same as formState because we won't have
-     errors initially */}
 
      const formSchema = yup.object().shape({
          name: yup.string().required("Name is a required field"),
@@ -59,9 +54,7 @@ export default function Form(){
          terms: yup.boolean().oneOf([true], "Please agree to our Terms & Conditions to continue")
      });
      
-     {/*formSchema is used to compare the values entered in the forms. We want
-        a change of state to cause a function to run*/}
-
+    
         const validateChange = e => {
             yup
             .reach(formSchema, e.target.name)
@@ -81,10 +74,6 @@ export default function Form(){
             });
         }, [formState]);
 
-     {/* useEffect (()=> {},[]) first variable is effect function, second
-       is dependency array. We're listening for something to change with a 
-       state so that, the code will do something else - like a trigger.
-        Want array to update whenever there's an update for  formState.   */}
 
 
 
@@ -123,17 +112,9 @@ export default function Form(){
         console.log(formState);
     };
 
-      {/* newFromData is recieving all data from formState (key value pairs).
-          onChange has been fired so we want to update input values by [e.target.name
-        ] to find specific "name"s of inputs. This updates state(formState?)
     
-        if e.target.type === "checkbox" then use target.check, if not use target.value*/}
 
-   
-
-
-
-
+    console.log(errors);
     return (
         <form onSubmit = {formSubmit}>
             <P>
@@ -148,7 +129,6 @@ export default function Form(){
              />
              {errors.name.length > 0 ? <p className="error">{errors.name}</p> : null}
 
-             {/* line above renders error message on page for user */}
 
             </label>
             <label htmlFor = "email">
@@ -179,17 +159,13 @@ export default function Form(){
                 </select>
             </label>
 
-            <label htmlFor="terms" className="terms">
+            <label htmlFor="terms" className="terms" data-cy="terms">
                 <input type="checkbox" name="terms" checked={formState.terms} onChange = {inputChange}/>
                 Terms & Conditions
             </label>
             
             
-                
-           
-        
-
-            <button disabled={isButtonDisabled} type="submit">
+           <button disabled={isButtonDisabled} type="submit" id="submit">
                 Submit
             </button>
 
@@ -203,6 +179,4 @@ export default function Form(){
     )
 }
 
-            {/* must add onChange to inputs. The onChange needs to be 
-            handled by inputChange so that all of the "name"s of input
-            will be updated with the new values   */}
+           
